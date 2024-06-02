@@ -3,7 +3,7 @@ const db = require("../db/conn");
 
 const User = require("./User");
 
-const Tought = db.define("Tought", {
+const thought = db.define("thought", {
     title: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -11,7 +11,7 @@ const Tought = db.define("Tought", {
     },
 });
 
-Tought.belongsTo(User);
-User.hasMany(Tought);
+thought.belongsTo(User);
+User.hasMany(thought);
 
-module.exports = Tought;
+module.exports = thought;

@@ -8,15 +8,15 @@ const app = express();
 const conn = require("./db/conn");
 
 // Import Models
-const Tought = require("./models/Tought");
+const thought = require("./models/Thought");
 const User = require("./models/User");
 
 // Import Routes
-const toughtsRoutes = require("./routes/toughtsRoutes");
+const thoughtsRoutes = require("./routes/thoughtsRoutes");
 const authRoutes = require("./routes/authRoutes");
 
 // Import Controllers
-const ToughtController = require("./controllers/ToughtController");
+const thoughtController = require("./controllers/ThoughtController");
 
 // Template Engine
 app.engine("handlebars", exphbs.engine());
@@ -67,10 +67,10 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use("/toughts", toughtsRoutes);
+app.use("/thoughts", thoughtsRoutes);
 app.use("/", authRoutes);
 
-app.get("/", ToughtController.showToughts);
+app.get("/", thoughtController.showthoughts);
 
 conn
     // .sync({ force: true })
@@ -78,4 +78,4 @@ conn
     .then(() => {
         app.listen(3000);
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.error(err));

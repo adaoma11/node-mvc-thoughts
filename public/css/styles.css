@@ -60,7 +60,6 @@
     max-width: 60%;
 }
 
-
 /* LOGIN E SIGNUP */
 
 .auth-container {
@@ -74,7 +73,7 @@
     margin-bottom: 1em;
     color: #fff;
     border-left: 4px solid #f6982d;
-    padding: .3em;
+    padding: 0.3em;
 }
 
 .auth-container a {
@@ -104,7 +103,7 @@ form input[type="submit"],
     background-color: transparent;
     color: #f6982d;
     border: 2px solid #f6982d;
-    padding: .5em 1.2em;
+    padding: 0.5em 1.2em;
     margin-bottom: 1.5em;
     font-size: 1em;
     font-weight: bold;
@@ -121,29 +120,29 @@ form input[type="submit"]:hover,
 }
 
 /* CREATE FORM AND EDIT FORM */
-.tought-form-container {
+.thought-form-container {
     display: flex;
     max-width: 450px;
     margin: 0 auto;
     flex-direction: column;
 }
 
-.tought-form-container a {
+.thought-form-container a {
     color: #f6982d;
 }
 
-.tought-form-container a:hover {
+.thought-form-container a:hover {
     color: #fff;
 }
 
-.tought-form-container h1 {
+.thought-form-container h1 {
     margin-bottom: 1em;
     color: #fff;
     border-left: 4px solid #f6982d;
-    padding: .3em;
+    padding: 0.3em;
 }
 
-.tought-form-container form {
+.thought-form-container form {
     margin: 1.5em 0;
 }
 
@@ -181,7 +180,7 @@ form input[type="submit"]:hover,
 }
 
 .dashboard .actions {
-    display:flex;
+    display: flex;
 }
 
 .dashboard .actions .btn {
@@ -202,5 +201,5 @@ footer {
 
 footer span {
     font-weight: bold;
-    color:#f6982d
+    color: #f6982d;
 }

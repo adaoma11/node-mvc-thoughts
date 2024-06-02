@@ -1,18 +1,18 @@
 <div class="dashboard">
     <div class="title-container">
         <h2>Dashboard</h2>
-        <a href="/toughts/add" class="btn">Criar Pensamento</a>
+        <a href="/thoughts/add" class="btn">Criar Pensamento</a>
     </div>
 
     <h3>Seus Pensamentos:</h3>
 
     <ul>
-        {{#each toughts}}
+        {{#each thoughts}}
             <li>
                 <span class="label">{{this.title}}</span>
                 <span class="actions">
-                    <a href="/toughts/edit/{{this.id}}" class="btn">Editar</a>
-                    <form action="/toughts/remove" method="post">
+                    <a href="/thoughts/edit/{{this.id}}" class="btn">Editar</a>
+                    <form action="/thoughts/remove" method="post">
                         <input type="hidden" name="id" value="{{this.id}}">
                         <input type="submit" value="Excluir" class="btn">
                     </form>
@@ -21,9 +21,9 @@
         {{/each}}
     </ul>
 
-    {{#if emptyToughts}}
+    {{#if emptythoughts}}
     
-    <p>Você ainda não criou nenhum pensamento. <a href="/toughts/add">Clique aqui</a> para começar a criar.</p>
+    <p>Você ainda não criou nenhum pensamento. <a href="/thoughts/add">Clique aqui</a> para começar a criar.</p>
 
     {{/if}}
 

@@ -1,9 +1,15 @@
-const Tought = require("../models/Tought");
+const Thought = require("../models/Thought");
 const User = require("../models/User");
 
-module.exports = class ToughtController {
-    static async showToughts(req, res) {
-        res.render("toughts/home");
+module.exports = class thoughtController {
+    static async showthoughts(req, res) {
+        const thoughtsData = await Thought.findAll({ include: User });
+
+        const thoughts = thoughtsData.map((result) =>
+            result.get({ plain: true })
+        );
+
+        res.render("thoughts/home", { thoughts });
     }
 
     static async dashboard(req, res) {
@@ -15,7 +21,7 @@ module.exports = class ToughtController {
 
         const userData = await User.findOne({
             where: { id: userId },
-            include: Tought,
+            include: Thought,
             plain: true,
         });
 
@@ -23,19 +29,19 @@ module.exports = class ToughtController {
             res.redirect("/login");
         }
 
-        const toughts = userData.Toughts.map((result) => result.dataValues);
+        const thoughts = userData.thoughts.map((result) => result.dataValues);
 
-        let emptyToughts = false;
-        toughts.length > 0 ? (emptyToughts = false) : (emptyToughts = true);
+        let emptythoughts = false;
+        thoughts.length > 0 ? (emptythoughts = false) : (emptythoughts = true);
 
-        res.render("toughts/dashboard", { toughts, emptyToughts });
+        res.render("thoughts/dashboard", { thoughts, emptythoughts });
     }
 
-    static createTought(req, res) {
-        res.render("toughts/create");
+    static createthought(req, res) {
+        res.render("thoughts/create");
     }
 
-    static async createToughtSave(req, res) {
+    static async createthoughtSave(req, res) {
         if (!req.session.userid) {
             res.redirect("/login");
             return;
@@ -43,22 +49,22 @@ module.exports = class ToughtController {
 
         if (!req.body.title || req.body.title.length < 3) {
             req.flash("message", "Caracteres insuficientes");
-            res.render("toughts/create");
+            res.render("thoughts/create");
             return;
         }
 
-        const tought = {
+        const thought = {
             title: req.body.title,
             UserId: req.session.userid,
         };
 
         try {
-            await Tought.create(tought);
+            await Thought.create(thought);
 
             req.flash("message", "Pensamento criado com sucesso");
 
             req.session.save(() => {
-                res.redirect("/toughts/dashboard");
+                res.redirect("/thoughts/dashboard");
             });
         } catch (err) {
             console.error(
@@ -67,67 +73,67 @@ module.exports = class ToughtController {
         }
     }
 
-    static async removeTought(req, res) {
-        const toughtId = req.body.id;
+    static async removethought(req, res) {
+        const thoughtId = req.body.id;
         const userId = req.session.userid;
 
         try {
-            await Tought.destroy({ where: { id: toughtId, UserId: userId } });
+            await Thought.destroy({ where: { id: thoughtId, UserId: userId } });
 
             req.flash("message", "Pensamento removido com sucesso");
 
             req.session.save(() => {
-                res.redirect("/toughts/dashboard");
+                res.redirect("/thoughts/dashboard");
             });
         } catch (err) {
             console.error("Ocorreu um erro ao remover o pensamento: " + err);
         }
     }
 
-    static async updateTought(req, res) {
-        const toughtId = req.params.id;
+    static async updatethought(req, res) {
+        const thoughtId = req.params.id;
         const userId = req.session.userid;
 
         try {
-            const tought = await Tought.findOne({
-                where: { id: toughtId, UserId: userId },
+            const thought = await Thought.findOne({
+                where: { id: thoughtId, UserId: userId },
                 raw: true,
             });
 
-            res.render("toughts/edit", { tought });
+            res.render("thoughts/edit", { thought });
         } catch (err) {
             console.error("Ocorreu um erro ao buscar o pensamento: " + err);
         }
     }
 
-    static async updateToughtSave(req, res) {
+    static async updatethoughtSave(req, res) {
         if (!req.session.userid) {
             res.redirect("/login");
             return;
         }
 
         const userId = req.session.userid;
-        const toughtId = req.body.id;
+        const thoughtId = req.body.id;
 
-        const tought = {
+        const thought = {
             title: req.body.title,
         };
 
         if (!req.body.title || req.body.title.length < 3) {
             req.flash("message", "Caracteres insuficientes");
-            res.render("toughts/edit", { tought });
+            res.render("thoughts/edit", { thought });
             return;
         }
 
         try {
-            await Tought.update(tought, {
-                where: { id: toughtId, UserId: userId },
+            await Thought.update(thought, {
+                where: { id: thoughtId, UserId: userId },
             });
 
             req.flash("message", "Pensamento atualizado com sucesso");
 
             req.session.save(() => {
-                res.redirect("/toughts/dashboard");
+                res.redirect("/thoughts/dashboard");
             });
         } catch (err) {
             console.error("Ocorreu um erro ao atualizar o pensamento: " + err);

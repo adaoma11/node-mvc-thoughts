@@ -1,0 +1,13 @@
+<div class="thought-form-container">
+    <h1>Editando um Pensamento</h1>
+
+    <form action="/thoughts/edit" method="post">
+        <div class="form-control">
+            <input type="hidden" name="id" value="{{thought.id}}">
+            <label for="titleInput">Pensamento:</label>
+            <input type="text" name="title" id="titleInput" value="{{thought.title}}" required>
+        </div>
+        
+        <input type="submit" value="Editar Pensamento">
+    </form>
+</div>
