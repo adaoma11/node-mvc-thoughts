@@ -1,0 +1,34 @@
+<div class="auth-container">
+
+    <h2>Cadastro de usuário</h2>
+
+    <form action="/signup" method="post">
+
+        <div class="form-control">
+            <label for="nameInput">Nome:</label>
+            <input type="text" name="name" id="nameInput" placeholder="Digite o seu nome" required>
+        </div>
+
+        <div class="form-control">
+            <label for="emailInput">E-mail:</label>
+            <input type="email" name="email" id="emailInput" placeholder="Digite o seu e-mail" required>
+        </div>
+
+        <div class="form-control">
+            <label for="passwordInput">Senha:</label>
+            <input type="password" name="password" id="passwordInput" placeholder="Digite a sua senha" required>
+        </div>
+
+        <div class="form-control">
+            <label for="confirmPasswordInput">Confirmação de senha:</label>
+            <input type="password" name="confirmpassword" id="confirmPasswordInput" placeholder="Confirme a sua senha" required>
+        </div>
+
+        <input type="submit" value="Cadastrar">
+
+        <p>Já tem conta? <a href="/login">Faça o login</a></p>
+
+    </form>
+
+</div>
+
