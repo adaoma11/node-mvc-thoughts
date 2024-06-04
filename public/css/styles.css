@@ -104,7 +104,7 @@ form input[type="submit"],
     color: #f6982d;
     border: 2px solid #f6982d;
     padding: 0.5em 1.2em;
-    margin-bottom: 1.5em;
+    margin-bottom: .5em;
     font-size: 1em;
     font-weight: bold;
     border-radius: 5px;
@@ -188,6 +188,102 @@ form input[type="submit"]:hover,
     border-color: #fff;
     margin: 0 0.5em;
 }
+
+/* HOME */
+.home-header {
+    display: flex;
+    flex-direction: column;
+    max-width: 60%;
+    margin: 0 auto 2em;
+    text-align: center;
+}
+
+.home-header .title {
+    margin-bottom: 3em;
+}
+
+.home-header .title h1 {
+    margin-bottom: 0.5em;
+}
+
+.home-header span {
+    color: #f6982d;
+}
+
+.home-header p,
+.home-header form {
+    margin-bottom: 1.2em;
+}
+
+.home-header input {
+    border: none;
+    border-bottom: 1px solid #fff;
+    padding: 0.5em;
+    margin-right: 1em;
+}
+
+.home-header input[type="text"] {
+    width: 60%;
+}
+
+.home-header input::placeholder {
+    color: #fff;
+}
+
+.home-header .search-cleanup {
+    max-width: 120px;
+    margin: 0 auto 1.5em;
+}
+
+.order-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 80%;
+    margin: 0 auto 2em;
+}
+
+.order-container span {
+    font-weight: bold;
+    color: #fff;
+}
+
+.order-container form {
+    margin: 0;
+}
+
+.order-container button {
+    margin-bottom: 0;
+    border: none;
+    cursor: pointer;
+}
+
+.order-container button {
+    margin: 0 10px;
+}
+
+.thoughts-container figure {
+    border-bottom: 1px solid #333;
+    padding: 0.5em;
+    max-width: 50%;
+    margin: 0 auto 1em;
+}
+
+.thoughts-container blockquote {
+    font-style: italic;
+    font-size: 2em;
+    margin-bottom: 0.4em;
+}
+
+.thoughts-container span {
+    color: #f6982d;
+}
+
+.order-container i:hover {
+    color: #f6982d;
+}
+
+
 
 /* FOOTER */
 

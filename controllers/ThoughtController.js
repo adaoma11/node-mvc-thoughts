@@ -1,15 +1,32 @@
 const Thought = require("../models/Thought");
 const User = require("../models/User");
 
+const { Op } = require("sequelize");
+
 module.exports = class thoughtController {
     static async showthoughts(req, res) {
-        const thoughtsData = await Thought.findAll({ include: User });
+        let search = "";
+        let order = "";
 
-        const thoughts = thoughtsData.map((result) =>
-            result.get({ plain: true })
-        );
+        req.query.search ? (search = req.query.search) : (search = "");
+        req.query.order === "oldest" ? (order = "ASC") : (order = "DESC");
 
-        res.render("thoughts/home", { thoughts });
+        const thoughts = await Thought.findAll({
+            include: User,
+            where: {
+                title: { [Op.like]: `%${search}%` },
+            },
+            order: [["updatedAt", order]],
+            raw: true,
+            nest: true,
+        });
+
+        thoughts.map((thought) => {
+            const data = new Date(thought.updatedAt).toLocaleString();
+            thought.data = data;
+        });
+
+        res.render("thoughts/home", { thoughts, search, thoughts });
     }
 
     static async dashboard(req, res) {
@@ -26,7 +43,7 @@ module.exports = class thoughtController {
         });
 
         if (!userData) {
-            res.redirect("/login");
+            return res.redirect("/login");
         }
 
         const thoughts = userData.thoughts.map((result) => result.dataValues);
@@ -43,14 +60,12 @@ module.exports = class thoughtController {
 
     static async createthoughtSave(req, res) {
         if (!req.session.userid) {
-            res.redirect("/login");
-            return;
+            return res.redirect("/login");
         }
 
         if (!req.body.title || req.body.title.length < 3) {
             req.flash("message", "Caracteres insuficientes");
-            res.render("thoughts/create");
-            return;
+            return res.render("thoughts/create");
         }
 
         const thought = {
@@ -108,8 +123,7 @@ module.exports = class thoughtController {
 
     static async updatethoughtSave(req, res) {
         if (!req.session.userid) {
-            res.redirect("/login");
-            return;
+            return res.redirect("/login");
         }
 
         const userId = req.session.userid;
@@ -121,8 +135,7 @@ module.exports = class thoughtController {
 
         if (!req.body.title || req.body.title.length < 3) {
             req.flash("message", "Caracteres insuficientes");
-            res.render("thoughts/edit", { thought });
-            return;
+            return res.render("thoughts/edit", { thought });
         }
 
         try {
